@@ -1,6 +1,7 @@
 package com.cursomc.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,11 +20,11 @@ public class ClientePJ extends Cliente {
 		
 	}
 
-	public ClientePJ(Integer id, String email, String razaoSocial, String cnpj, LocalDate dataFundacao) {
+	public ClientePJ(Integer id, String razaoSocial, String cnpj, String email, String dataFundacao) {
 		super(id, email);
 		this.razaoSocial = razaoSocial;
 		this.cnpj = cnpj;
-		this.dataFundacao = dataFundacao;
+		setDataFundacao(dataFundacao);
 	}
 
 	public String getRazaoSocial() {
@@ -46,7 +47,8 @@ public class ClientePJ extends Cliente {
 		return dataFundacao;
 	}
 
-	public void setDataFundacao(LocalDate dataFundacao) {
-		this.dataFundacao = dataFundacao;
+	public void setDataFundacao(String dataFundacao) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		this.dataFundacao = LocalDate.parse(dataFundacao, formatter);
 	}
 }

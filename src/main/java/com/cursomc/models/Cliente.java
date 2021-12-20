@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "tb_cliente")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -33,6 +35,7 @@ public abstract class Cliente implements Serializable {
 	@Email
 	private String email;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
