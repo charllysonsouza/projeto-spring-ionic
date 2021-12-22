@@ -10,7 +10,7 @@ import com.cursomc.models.Cidade;
 import com.cursomc.services.CidadeService;
 
 @RestController
-@RequestMapping(path = "cidades")
+@RequestMapping(path = "/cidades")
 public class CidadeController {
 	
 	@Autowired

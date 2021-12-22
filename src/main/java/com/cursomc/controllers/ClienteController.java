@@ -11,7 +11,7 @@ import com.cursomc.models.Cliente;
 import com.cursomc.services.ClienteService;
 
 @RestController
-@RequestMapping(path = "clientes")
+@RequestMapping(path = "/clientes")
 public class ClienteController {
 	
 	@Autowired
