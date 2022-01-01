@@ -27,7 +27,8 @@ public class CategoriaService {
 		return obj;
 	}
 	
-	public Categoria create(Categoria cat) {
+	public Categoria insert(Categoria cat) {
+		cat.setId(null);
 		return this.categoriaRespository.save(cat);
 	}
 
