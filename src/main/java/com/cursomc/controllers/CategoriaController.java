@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,9 +38,16 @@ public class CategoriaController {
 	
 	@PostMapping
 	public ResponseEntity<Void> insert(@RequestBody Categoria cat){
-		cat = categoriaService.insert(cat);
+		cat = categoriaService.insert(cat);  // a operação save do repository retorna o objeto
 		URI uri =  ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cat.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> update(@RequestBody Categoria cat, @PathVariable Integer id){
+		cat.setId(id);
+		cat = categoriaService.update(cat);
+		return ResponseEntity.noContent().build();
 	}
 }
  

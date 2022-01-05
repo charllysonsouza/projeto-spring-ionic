@@ -14,22 +14,28 @@ import com.cursomc.services.exceptions.ObjectNotFoundException;
 public class CategoriaService {
 	
 	@Autowired
-	private CategoriaRepository categoriaRespository;
+	private CategoriaRepository categoriaRepository;
 	
 	public Categoria findById(Integer id) {
-		Optional<Categoria> obj = categoriaRespository.findById(id);
+		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + 
 				", Tipo: " + Categoria.class.getName()));
 	}
 	
 	public List<Categoria> findAll(){
-		List<Categoria> obj = categoriaRespository.findAll();
+		List<Categoria> obj = categoriaRepository.findAll();
 		return obj;
 	}
 	
 	public Categoria insert(Categoria cat) {
-		cat.setId(null);
-		return this.categoriaRespository.save(cat);
+		// o id precisa necessariamente estar valendo null, caso contrário o método save considera um update
+		cat.setId(null);  
+		return categoriaRepository.save(cat);
+	}
+	
+	public Categoria update(Categoria cat) {
+		findById(cat.getId());
+		return categoriaRepository.save(cat);
 	}
 
 }
