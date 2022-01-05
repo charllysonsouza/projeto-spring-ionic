@@ -9,20 +9,19 @@ import com.cursomc.repositories.EstadoRepository;
 
 @Service
 public class CidadeService {
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
-	
+
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
+
 	public Cidade create(Cidade c) {
-		
-		if(c.getEstado() != null) {
+
+		if (c.getEstado() != null) {
 			estadoRepository.save(c.getEstado());
 		}
 		return this.cidadeRepository.save(c);
 	}
-	
 
 }
