@@ -10,8 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.cursomc.models.Categoria;
 import com.cursomc.models.Cidade;
-import com.cursomc.models.ClientePF;
-import com.cursomc.models.ClientePJ;
+import com.cursomc.models.Cliente;
 import com.cursomc.models.Endereco;
 import com.cursomc.models.Estado;
 import com.cursomc.models.ItemPedido;
@@ -21,6 +20,7 @@ import com.cursomc.models.PagamentoComCartao;
 import com.cursomc.models.Pedido;
 import com.cursomc.models.Produto;
 import com.cursomc.models.enums.EstadoPagamento;
+import com.cursomc.models.enums.TipoCliente;
 import com.cursomc.repositories.CategoriaRepository;
 import com.cursomc.repositories.CidadeRepository;
 import com.cursomc.repositories.ClienteRepository;
@@ -100,23 +100,20 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-		ClientePF pf1 = new ClientePF(null, "Maria Silva", "maria@gmail.com", "12345678952", "25/01/1970");
-		ClientePJ pj1 = new ClientePJ(null, "Jedi Software LTDA", "12123456000152", "jedi@corporation.com",
-				"06/10/1995");
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 
-		pf1.getTelefones().addAll(Arrays.asList("8956-7458", "4562-1245"));
-		pj1.getTelefones().addAll(Arrays.asList("3861-2533", "2543-4563", "4563-8975"));
+		cli1.getTelefones().addAll(Arrays.asList("8956-7458", "4562-1245"));
 
-		Endereco e1 = new Endereco(null, "Rua Flores", 300, "Apto 3030", "Jardim", "78945-123", pf1, c1);
-		Endereco e2 = new Endereco(null, "Avenida Matos", 105, "Sala 800", "Centro", "12345-562", pf1, c2);
+		Endereco e1 = new Endereco(null, "Rua Flores", 300, "Apto 3030", "Jardim", "78945-123", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", 105, "Sala 800", "Centro", "12345-562", cli1, c2);
 
-		clienteRepository.saveAll(Arrays.asList(pf1, pj1));
+		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), pf1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), pf1, e2);
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
 
 		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pgto1);

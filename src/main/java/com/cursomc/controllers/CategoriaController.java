@@ -65,7 +65,7 @@ public class CategoriaController {
 		categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
 	@GetMapping(value = "/page")
 	public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(name = "page", defaultValue = "0") Integer page,
 			@RequestParam(name = "linesPerPage", defaultValue = "24") Integer linesPerPage,
