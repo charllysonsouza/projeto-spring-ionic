@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 
 import com.cursomc.models.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,8 +31,6 @@ public class Cliente implements Serializable {
 	private Integer id;
 
 	private String nome;
-
-	@Email
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
@@ -57,7 +54,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
