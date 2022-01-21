@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cursomc.dto.CategoriaDTO;
@@ -54,13 +53,18 @@ public class CategoriaService {
 		}
 	}
 	
-	// Page encapsula informações e operações da paginação
-	// Page é uma classe do Spring Data
-	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction ){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return categoriaRepository.findAll(pageRequest);
+	public Page<Categoria> findPage(Pageable pageable){
+		Page<Categoria> result = categoriaRepository.findAll(pageable);
+		return result;
 	}
 	
+	// Page encapsula informações e operações da paginação
+	// Page é uma classe do Spring Data
+//	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction ){
+//		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+//		return categoriaRepository.findAll(pageRequest);
+//	}
+//	
 	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
 		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
