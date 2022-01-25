@@ -7,9 +7,11 @@ import javax.persistence.Table;
 
 import com.cursomc.models.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
 @Table(name = "tb_pagamento_boleto")
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento {
 	
 	private static final long serialVersionUID = 1L;
